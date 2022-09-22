@@ -21,7 +21,39 @@ def BFS(problem, repeat_check=False):
     problem, returning a solution node in the search tree, corresponding
     to the goal location, if a solution is found. Only perform repeated
     state checking if the provided boolean argument is true."""
-
     # PLACE YOUR CODE HERE
+    #  node containing initial state of the problem
+    startNode = Node(problem.start)
+    #return  Node if it contains goal node
+    if startNode == problem.goal:
+        return startNode
+    #add startNode to frontier
+    Frontier.add(startNode)
+    #reached set must contain startNode
+    path  = set((startNode))
+    #while frontier is not empty
+    check = Frontier.is_empty()
+    while check != 0:
+        #node that has just been removed
+        removedNode = Frontier.pop()
+        #return if goal
+        if removedNode == problem.goal:
+            return removedNode
+     #expand removedNode then iterate
+        for i in  removedNode.expand(problem):
+            #add child to  frontier
+            Frontier.add(i)
+            #temp variable to check if child is in set
+            temp = 0
+            for j in path:
+                if i == j:
+                    temp = 1
+            if temp == 0:
+                path.add(i)
+
+
+
+        check = Frontier.is_empty()
+
 
     return None
