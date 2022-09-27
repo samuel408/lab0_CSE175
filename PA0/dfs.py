@@ -23,7 +23,6 @@ def DFS(problem, repeat_check=False):
     state checking if the provided boolean argument is true."""
 
     # PLACE YOUR CODE HERE
-    # PLACE YOUR CODE HERE
     #  node containing initial state of the problem
     startNode = Node(problem.start)
     # return  Node if it contains goal node
@@ -55,5 +54,4 @@ def DFS(problem, repeat_check=False):
 
         check = Frontier.is_empty()
 
-    return None
     return None
