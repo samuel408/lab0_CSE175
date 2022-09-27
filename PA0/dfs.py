@@ -25,6 +25,8 @@ def DFS(problem, repeat_check=False):
     # PLACE YOUR CODE HERE
     #  node containing initial state of the problem
     startNode = Node(problem.start)
+    #initiali
+    solution = None
     # return  Node if it contains goal node
     if startNode == problem.goal:
         return startNode
@@ -50,8 +52,8 @@ def DFS(problem, repeat_check=False):
                 if i == j:
                     temp = 1
             if temp == 0:
-                path.add(i)
+                solution = path.add(i)
 
         check = Frontier.is_empty()
 
-    return None
+    return solution
