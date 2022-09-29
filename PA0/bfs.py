@@ -24,14 +24,13 @@ def BFS(problem, repeat_check=False):
     # PLACE YOUR CODE HERE
     #  node containing initial state of the problem
     startNode = Node(problem.start)
-    solution = None
     #return  Node if it contains goal node
     if startNode == problem.goal:
         return startNode
     #add startNode to frontier
     Frontier.add(startNode)
     #reached set must contain startNode
-    path  = set((startNode))
+    path = set((startNode))
     #while frontier is not empty
     check = Frontier.is_empty()
     while check != 0:
@@ -41,21 +40,22 @@ def BFS(problem, repeat_check=False):
         if removedNode == problem.goal:
             return removedNode
      #expand removedNode then iterate
-        for i in  removedNode.expand(problem):
+        for i in removedNode.expand(problem):
             #add child to  frontier
-            Frontier.add(i)
+            if repeat_check == False:
+                Frontier.add(i)
             #temp variable to check if child is in set
             temp = 0
             for j in path:
                 if i == j:
                     temp = 1
             if temp == 0:
-                solution = path.add(i)
+                path.add(i)
 
 
 
 
-        check = Frontier.is_empty()
+        check = Frontier.is_empty()# loop condition
 
 
-    return solution
+    return None #none is failure
