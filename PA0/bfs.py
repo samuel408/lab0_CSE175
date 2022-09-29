@@ -25,22 +25,22 @@ def BFS(problem, repeat_check=False):
     #  node containing initial state of the problem
     startNode = Node(problem.start)
     #return  Node if it contains goal node
-    if startNode == problem.goal:
+    if startNode is problem.goal:
         return startNode
     #add startNode to frontier,initializing a queue
     queue = Frontier(startNode, True)
     #reached set must contain startNode
     path = set()
     if repeat_check:
-        path.add(startNode)
-    #while frontier is not empty
+        path.add(startNode.loc)
 
-    while queue.is_empty() != 0:
+    #while frontier is not empty
+    while not queue.is_empty() :
 
         #node that has just been removed
         removedNode = queue.pop()
         #return if goal
-        if removedNode == problem.goal:
+        if removedNode is problem.goal:
             return removedNode
      #expand removedNode then iterate
         for i in removedNode.expand(problem):
@@ -50,15 +50,15 @@ def BFS(problem, repeat_check=False):
             #temp variable to check if child is in set
             temp = 0
             for j in path:
-                if i == j:
+                if i is j:
                     temp = 1
-            if temp == 0 and repeat_check == False:
-                queue.add(i)
-                path.add(i)
+
+            if temp == 0 and repeat_check is False:
+                path.add(i.loc)#adds to reached set
 
 
 
 
 
 
-    return None #none is failure
+    return None#none is failure
