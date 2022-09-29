@@ -28,31 +28,33 @@ def DFS(problem, repeat_check=False):
     # return  Node if it contains goal node
     if startNode == problem.goal:
         return startNode
-    # add startNode to frontier,initializing a STACK
-    Frontier(startNode, False)
+    # add startNode to frontier,initializing a queue
+    stack = Frontier(startNode, True)
     # reached set must contain startNode
-    path = set((startNode))
+    path = set()
+    if repeat_check:
+        path.add(startNode)
     # while frontier is not empty
-    check = Frontier.is_empty()
-    while check != 0:
+
+    while stack.is_empty() != 0:
+
         # node that has just been removed
-        removedNode = Frontier.pop()
+        removedNode = stack.pop()
         # return if goal
         if removedNode == problem.goal:
             return removedNode
         # expand removedNode then iterate
         for i in removedNode.expand(problem):
             # add child to  frontier
-            if repeat_check == False:
-                Frontier.add(i)
+            #  if repeat_check == False:
+            #  Frontier.add(i)
             # temp variable to check if child is in set
             temp = 0
             for j in path:
                 if i == j:
                     temp = 1
-            if temp == 0:
+            if temp == 0 and repeat_check == False:
+                stack.add(i)
                 path.add(i)
-
-        check = Frontier.is_empty()  # loop condition
 
     return None  # none is failure
