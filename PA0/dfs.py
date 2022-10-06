@@ -59,36 +59,34 @@ def DFS(problem, repeat_check=False):
     return None#retun failure
 =======
     # return  Node if it contains goal node
-    if startNode == problem.goal:
+    if problem.is_goal(startNode):
         return startNode
-    # add startNode to frontier,initializing a queue
+    # add startNode to frontier,initializing a stack
     stack = Frontier(startNode, True)
     # reached set must contain startNode
     path = set()
     if repeat_check:
-        path.add(startNode)
+        path.add(startNode.loc)
+
     # while frontier is not empty
-
-    while stack.is_empty() != 0:
-
+    while not stack.is_empty():
         # node that has just been removed
-        removedNode = stack.pop()
-        # return if goal
-        if removedNode == problem.goal:
-            return removedNode
+        startNode = stack.pop()
+        # return if goal node
+        if problem.is_goal(startNode.loc):
+            return startNode
         # expand removedNode then iterate
-        for i in removedNode.expand(problem):
+
+        for i in startNode.expand(problem):
             # add child to  frontier
-            #  if repeat_check == False:
-            #  Frontier.add(i)
-            # temp variable to check if child is in set
-            temp = 0
-            for j in path:
-                if i == j:
-                    temp = 1
-            if temp == 0 and repeat_check == False:
+            if repeat_check:
+                current = i.loc
+                if current not in path:
+                    path.add(current)  # adds to reached set
+                    stack.add(i)
+
+            else:
                 stack.add(i)
-                path.add(i)
 
     return None  # none is failure
 >>>>>>> BFS
